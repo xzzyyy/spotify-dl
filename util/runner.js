@@ -44,6 +44,7 @@ const downloadList = async list => {
       const itemName = nextItem.name;
       const albumName = nextItem.album_name;
       const artistName = nextItem.artists[0];
+      const lenSec = nextItem.durationMs;
       logInfo(
         [
           `${currentCount}/${totalItems}`,
@@ -58,12 +59,13 @@ const downloadList = async list => {
           itemName,
           albumName,
           artistName,
+          lenSec,
           extraSearch,
           type: list.type,
         },
       );
 
-      const fileNameCleaned = cleanOutputPath(itemName) || '_';
+      const fileNameCleaned = cleanOutputPath(artistName + ' -- ' + itemName) || '_';
 
       const outputFilePath = path.resolve(
         itemDir,
@@ -218,7 +220,7 @@ const run = async () => {
               artists: [''],
               album_name: URL,
               release_date: null,
-              //todo can we get the youtube image?
+              //todo can we get the YouTube image?
               cover_url: GENERIC_IMAGE,
               id: URL,
               URL: URL,
